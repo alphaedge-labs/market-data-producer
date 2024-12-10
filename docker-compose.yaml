@@ -53,6 +53,39 @@ services:
                     cpus: "0.25"
                     memory: 256M
 
+    alphaedge__clickhouse:
+        image: clickhouse/clickhouse-server:latest
+        container_name: alphaedge__clickhouse
+        ports:
+            - "8123:8123"
+            - "9000:9000" # Native ClickHouse protocol port
+        environment:
+            - CLICKHOUSE_DB=${CLICKHOUSE_DB}
+            - CLICKHOUSE_USER=${CLICKHOUSE_USER}
+            - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+            - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
+        volumes:
+            - clickhouse_data:/var/lib/clickhouse
+            - clickhouse_logs:/var/log/clickhouse-server
+        networks:
+            - alphaedge__network
+        deploy:
+            resources:
+                limits:
+                    cpus: "2"
+                    memory: 2G
+                reservations:
+                    cpus: "1"
+                    memory: 1G
+        ulimits:
+            nofile:
+                soft: 262144
+                hard: 262144
+
 networks:
     alphaedge__network:
         external: true
+
+volumes:
+    clickhouse_data:
+    clickhouse_logs:

@@ -1,0 +1,26 @@
+# Web Framework
+fastapi
+uvicorn
+
+# Message Queue
+aio-pika
+
+# Database
+motor
+pymongo
+
+# Time and Date
+pytz
+
+# Environment Variables
+python-dotenv
+
+# Trading API
+breeze-connect
+
+# Utilities
+nanoid
+loguru
+
+# Optional but recommended for FastAPI
+pydantic
